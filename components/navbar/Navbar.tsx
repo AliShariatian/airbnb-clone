@@ -1,5 +1,7 @@
 // Top page navbar
 
+"use client";
+
 import Container from "../Container";
 import Logo from "./Logo";
 import Search from "./Search";

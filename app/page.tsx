@@ -1,5 +1,5 @@
-function HomePage() {
-   return <p className="text-xl text-red-800">Hello Airbnb</p>;
-}
+const HomePage = () => {
+   return <div>Home Page</div>;
+};
 
 export default HomePage;

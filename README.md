@@ -15,4 +15,8 @@ bun dev
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 ## Tools used in this project
+- React Hook form
+- React hot toast
 - React icons
+- Zustand
+- Axios

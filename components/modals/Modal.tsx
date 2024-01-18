@@ -54,13 +54,13 @@ const Modal: React.FC<ModalProps> = ({ title, body, footer, isOpen, disabled, se
          return;
       }
 
-      // if is not open, return
-      if (!isOpen) {
-         return null;
-      }
-
       secondaryAction();
    }, [disabled, secondaryAction]);
+
+   // if modal is not open, return
+   if (!isOpen) {
+      return null;
+   }
 
    return (
       <div className="flex justify-center items-center fixed inset-0 overflow-x-hidden overflow-y-auto z-50 outline-none focus:outline-none bg-neutral-800/70">

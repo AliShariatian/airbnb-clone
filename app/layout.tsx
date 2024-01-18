@@ -4,7 +4,8 @@ import "./globals.css";
 
 // import components
 import Navbar from "@/components/navbar/Navbar";
-import Modal from "@/components/modals/Modal";
+import RegisterModal from "@/components/modals/RegisterModal";
+import ToasterProvider from "@/providers/ToasterProvider";
 
 const fontNunito = Nunito({ subsets: ["latin-ext"] });
 
@@ -17,7 +18,8 @@ function RootLayout({ children }: { children: React.ReactNode }) {
    return (
       <html lang="en">
          <body className={fontNunito.className}>
-            <Modal isOpen title="Hello World" actionLabel="Login" />
+            <ToasterProvider />
+            <RegisterModal />
             <Navbar />
             {children}
          </body>

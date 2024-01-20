@@ -63,32 +63,35 @@ const Modal: React.FC<ModalProps> = ({ title, body, footer, isOpen, disabled, se
    }
 
    return (
-      <section className="flex justify-center items-center fixed inset-0 overflow-x-hidden overflow-y-auto z-50 outline-none focus:outline-none bg-neutral-800/70">
-         <div className="relative w-full my-6 mx-auto h-full md:h-auto md:w-4/6 lg:w-3/6 xl:w-2/5">
-            {/* content */}
-            <div className={`transition duration-300 h-full ${showModal ? "translate-y-0 opacity-100" : "translate-y-full opacity-0"}`}>
-               <div className="relative flex flex-col bg-white transition w-full h-full md:h-auto outline-none focus:outline-none border-0 rounded-lg shadow-lg">
-                  {/* header */}
-                  <div className="relative flex items-center justify-center p-5 rounded-t border-b-[1px]">
-                     <button onClick={closeModalHandler} className="absolute left-9 p-1 border-0 hover:opacity-70 transition">
-                        <IoMdClose size={18} />
-                     </button>
-                     <h3 className="text-lg font-semibold">{title}</h3>
-                  </div>
-                  {/* body */}
-                  <div className="relative p-5 flex-auto">{body}</div>
-                  {/* footer */}
-                  <div className="flex flex-col gap-2 p-5">
-                     <div className="flex items-center gap-4 w-full">
-                        {secondaryAction && secondaryActionLabel && <Button disabled={disabled} outline label={secondaryActionLabel} onClick={secondaryActionHandler} />}
-                        <Button disabled={disabled} label={actionLabel} onClick={submitHandler} />
+      <>
+         <section className="flex justify-center items-center fixed inset-0 overflow-x-hidden overflow-y-auto outline-none focus:outline-none z-20">
+            <div onClick={closeModalHandler} className="fixed inset-0 z-30 bg-neutral-800/70"></div>
+            <div className="relative w-full my-6 mx-auto h-full md:h-auto md:w-4/6 lg:w-3/6 xl:w-2/5 z-40">
+               {/* content */}
+               <div className={`transition duration-300 h-full ${showModal ? "translate-y-0 opacity-100" : "translate-y-full opacity-0"}`}>
+                  <div className="relative flex flex-col bg-white transition w-full h-full md:h-auto outline-none focus:outline-none border-0 rounded-lg shadow-lg">
+                     {/* header */}
+                     <div className="relative flex items-center justify-center p-5 rounded-t border-b-[1px]">
+                        <button onClick={closeModalHandler} className="absolute left-9 p-1 border-0 hover:opacity-70 transition">
+                           <IoMdClose size={18} />
+                        </button>
+                        <h3 className="text-lg font-semibold">{title}</h3>
                      </div>
-                     {footer}
+                     {/* body */}
+                     <div className="relative p-5 flex-auto">{body}</div>
+                     {/* footer */}
+                     <div className="flex flex-col gap-2 p-5">
+                        <div className="flex items-center gap-4 w-full">
+                           {secondaryAction && secondaryActionLabel && <Button disabled={disabled} outline label={secondaryActionLabel} onClick={secondaryActionHandler} />}
+                           <Button disabled={disabled} label={actionLabel} onClick={submitHandler} />
+                        </div>
+                        {footer}
+                     </div>
                   </div>
                </div>
             </div>
-         </div>
-      </section>
+         </section>
+      </>
    );
 };
 

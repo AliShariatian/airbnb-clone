@@ -20,35 +20,36 @@ export const authOptions: AuthOptions = {
       }),
 
       CredentialsProvider({
-         name: "customLoginForm",
+         name: "LoginForm",
          credentials: {
             email: { label: "email", type: "email" },
             password: { label: "password", type: "password" },
          },
 
-         async authorize(customLoginForm) {
+         async authorize(LoginForm) {
             // if email and user is empty
-            if (!customLoginForm?.email || !customLoginForm?.password) {
-               throw new Error("Invalid Email or Password");
+            if (!LoginForm?.email || !LoginForm?.password) {
+               throw new Error("InvalidEmailOrPassword");
             }
 
             // search user in database
             const user = await prisma.user.findUnique({
                where: {
-                  email: customLoginForm.email,
+                  email: LoginForm.email,
                },
             });
 
             // if not exist user
             if (!user || !user?.hashedPassword) {
-               throw new Error("Email not found! Please SignUp.");
+               // Email not found! Please SignUp.
+               throw new Error("EmailNotFound");
             }
 
-            const isCorrectPassword = await bcrypt.compare(customLoginForm.password, user.hashedPassword);
+            const isCorrectPassword = await bcrypt.compare(LoginForm.password, user.hashedPassword);
 
             // if password is not correct
             if (!isCorrectPassword) {
-               throw new Error("Invalid password");
+               throw new Error("InvalidPassword");
             }
 
             // if user Exist in database AND Correct password.

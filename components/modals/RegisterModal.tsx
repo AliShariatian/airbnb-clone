@@ -46,9 +46,58 @@ const RegisterModal = () => {
    const bodyContent = (
       <div className="flex flex-col gap-4">
          <Heading title="Welcome to Airbnb" subTitle="Create an account!" />
-         <Input id="name" label="Your name" disabled={isLoading} register={register} errors={errors} required />
-         <Input id="email" label="Email" type="email" disabled={isLoading} register={register} errors={errors} required />
-         <Input id="password" label="Password" type="password" disabled={isLoading} register={register} errors={errors} required />
+
+         <Input
+            id="name"
+            label="Your name"
+            payload={{
+               required: {
+                  value: true,
+                  message: "Name is require!",
+               },
+            }}
+            disabled={isLoading}
+            register={register}
+            errors={errors}
+         />
+
+         <Input
+            id="email"
+            label="Email"
+            type="email"
+            payload={{
+               pattern: {
+                  value: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
+                  message: "Enter valid email value!",
+               },
+               required: {
+                  value: true,
+                  message: "Email is require!",
+               },
+            }}
+            disabled={isLoading}
+            register={register}
+            errors={errors}
+         />
+
+         <Input
+            id="password"
+            label="Password"
+            type="password"
+            payload={{
+               minLength: {
+                  value: 10,
+                  message: "Password will be lates of 10 characters",
+               },
+               required: {
+                  value: true,
+                  message: "Password is require!",
+               },
+            }}
+            disabled={isLoading}
+            register={register}
+            errors={errors}
+         />
       </div>
    );
 

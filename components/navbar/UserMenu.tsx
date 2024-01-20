@@ -2,12 +2,18 @@
 
 import { AiOutlineMenu } from "react-icons/ai";
 import Avatar from "../Avatar";
-import { useCallback, useState } from "react";
+import React, { useCallback, useState } from "react";
 import MenuItem from "./MenuItem";
 import useRegisterModal from "@/hooks/useRegisterModal";
 import useLoginModal from "@/hooks/useLoginModal";
+import { SafeUser } from "@/types";
+import { signOut } from "next-auth/react";
 
-const UserMenu = () => {
+interface UserMenuProps {
+   currentUser?: SafeUser | null;
+}
+
+const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
    const [menuIsOpen, setMenuIsOpen] = useState(false);
    const registerModal = useRegisterModal();
    const loginModal = useLoginModal();
@@ -37,8 +43,22 @@ const UserMenu = () => {
                <div onClick={toggleOpenMenu} className="fixed inset-0"></div>
                <div className="absolute right-0 top-14 md:top-12 rounded-xl shadow-md w-[40vw] md:w-3/4 bg-white overflow-hidden text-sm">
                   <ul className="flex flex-col cursor-pointer">
-                     <MenuItem onClick={loginModal.onOpen} label="Login" />
-                     <MenuItem onClick={registerModal.onOpen} label="Sign up" />
+                     {currentUser ? (
+                        <>
+                           <MenuItem onClick={() => {}} label="My trips" />
+                           <MenuItem onClick={() => {}} label="My favorites" />
+                           <MenuItem onClick={() => {}} label="My reservations" />
+                           <MenuItem onClick={() => {}} label="My properties" />
+                           <MenuItem onClick={() => {}} label="Airbnb my home" />
+                           <hr />
+                           <MenuItem onClick={() => signOut()} label="Logout" />
+                        </>
+                     ) : (
+                        <>
+                           <MenuItem onClick={loginModal.onOpen} label="Login" />
+                           <MenuItem onClick={registerModal.onOpen} label="Sign up" />
+                        </>
+                     )}
                   </ul>
                </div>
             </>

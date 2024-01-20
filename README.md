@@ -20,3 +20,6 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 - React icons
 - Zustand
 - Axios
+- Prisma
+- Next auth
+- Bcrypt

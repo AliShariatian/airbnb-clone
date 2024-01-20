@@ -5,10 +5,12 @@ import Avatar from "../Avatar";
 import { useCallback, useState } from "react";
 import MenuItem from "./MenuItem";
 import useRegisterModal from "@/hooks/useRegisterModal";
+import useLoginModal from "@/hooks/useLoginModal";
 
 const UserMenu = () => {
    const [menuIsOpen, setMenuIsOpen] = useState(false);
-   const registerModal = useRegisterModal()
+   const registerModal = useRegisterModal();
+   const loginModal = useLoginModal();
 
    // toggle for open and close sub-menu
    const toggleOpenMenu = useCallback(() => {
@@ -31,12 +33,15 @@ const UserMenu = () => {
 
          {/* sub-menu */}
          {menuIsOpen && (
-            <div className="absolute right-0 top-14 md:top-12 rounded-xl shadow-md w-[40vw] md:w-3/4 bg-white overflow-hidden text-sm">
-               <ul className="flex flex-col cursor-pointer">
-                  <MenuItem onClick={() => {}} label="Login" />
-                  <MenuItem onClick={registerModal.onOpen} label="Sign up" />
-               </ul>
-            </div>
+            <>
+               <div onClick={toggleOpenMenu} className="fixed inset-0"></div>
+               <div className="absolute right-0 top-14 md:top-12 rounded-xl shadow-md w-[40vw] md:w-3/4 bg-white overflow-hidden text-sm">
+                  <ul className="flex flex-col cursor-pointer">
+                     <MenuItem onClick={loginModal.onOpen} label="Login" />
+                     <MenuItem onClick={registerModal.onOpen} label="Sign up" />
+                  </ul>
+               </div>
+            </>
          )}
       </div>
    );

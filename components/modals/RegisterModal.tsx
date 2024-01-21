@@ -53,6 +53,22 @@ const RegisterModal = () => {
          });
    };
 
+   const signInAction = () => {
+      setIsLoading(true);
+
+      signIn("github")
+         .then(() => {
+            registerModal.onClose();
+            toast.success("Register Successfully!");
+         })
+         .catch(() => {
+            toast.error("Something went wrong!");
+         })
+         .finally(() => {
+            setIsLoading(false);
+         });
+   };
+
    const bodyContent = (
       <div className="flex flex-col gap-4">
          <Heading title="Welcome to Airbnb" subTitle="Create an account!" />
@@ -115,7 +131,7 @@ const RegisterModal = () => {
       <div className="flex flex-col gap-4 mt-3">
          <hr />
          {/* <Button outline icon={FcGoogle} label="Continue with Google" onClick={() => signIn('google')} /> */}
-         <Button outline icon={AiFillGithub} label="Continue with Github" onClick={() => signIn("github")} />
+         <Button outline icon={AiFillGithub} label="Continue with Github" onClick={signInAction} />
          <div className="text-neutral-500 text-center mt-4 font-light">
             <div className="flex items-center gap-3 justify-center">
                <span>Already have an account?</span>

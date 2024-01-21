@@ -42,7 +42,7 @@ export const authOptions: AuthOptions = {
             // if not exist user
             if (!user || !user?.hashedPassword) {
                // Email not found! Please SignUp.
-               throw new Error("EmailNotFound");
+               throw new Error("UserNotFound");
             }
 
             const isCorrectPassword = await bcrypt.compare(LoginForm.password, user.hashedPassword);

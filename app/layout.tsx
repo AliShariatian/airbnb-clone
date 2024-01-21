@@ -18,6 +18,7 @@ export const metadata: Metadata = {
 
 async function RootLayout({ children }: { children: React.ReactNode }) {
    const currentUser = await getCurrentUser();
+
    return (
       <html lang="en">
          <body className={fontNunito.className}>

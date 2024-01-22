@@ -5,7 +5,7 @@ import useRegisterModal from "@/hooks/useRegisterModal";
 import useLoginModal from "@/hooks/useLoginModal";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { AiFillGithub } from "react-icons/ai";
-import { FcGoogle } from "react-icons/fc";
+// import { FcGoogle } from "react-icons/fc";
 import axios from "axios";
 import Modal from "./Modal";
 import Heading from "../Heading";

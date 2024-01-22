@@ -1,8 +1,9 @@
 "use client";
 
 import { signIn } from "next-auth/react";
-import { useState } from "react";
-import useRegisterModal from "@/hooks/useLoginModal";
+import { useCallback, useState } from "react";
+import useRegisterModal from "@/hooks/useRegisterModal";
+import useLoginModal from "@/hooks/useLoginModal";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { AiFillGithub } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
@@ -11,13 +12,14 @@ import Heading from "../Heading";
 import Input from "../inputs/Input";
 import toast from "react-hot-toast";
 import Button from "../Button";
-import useLoginModal from "@/hooks/useLoginModal";
 import { useRouter } from "next/navigation";
 
 const LoginModal = () => {
    const router = useRouter();
+
    const registerModal = useRegisterModal();
    const loginModal = useLoginModal();
+
    const [isLoading, setIsLoading] = useState(false);
    const {
       register,
@@ -72,6 +74,11 @@ const LoginModal = () => {
          });
    };
 
+   const toggleModalHandler = useCallback(() => {
+      loginModal.onClose();
+      registerModal.onOpen();
+   }, [loginModal, registerModal]);
+
    const bodyContent = (
       <div className="flex flex-col gap-4">
          <Heading title="Welcome back" subTitle="Login to your account!" />
@@ -119,9 +126,9 @@ const LoginModal = () => {
          <Button outline icon={AiFillGithub} label="Continue with Github" onClick={signInAction} />
          <div className="text-neutral-500 text-center mt-4 font-light">
             <div className="flex items-center gap-3 justify-center">
-               <span>Already have an account?</span>
-               <span onClick={registerModal.onClose} className="text-neutral-800 cursor-pointer hover:underline">
-                  Login
+               <span>First time using Airbnb?</span>
+               <span onClick={toggleModalHandler} className="text-neutral-800 cursor-pointer hover:underline">
+                  Create an account
                </span>
             </div>
          </div>

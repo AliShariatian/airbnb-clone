@@ -23,7 +23,7 @@ const Input: React.FC<InputProps> = ({ id, label, register, payload, errors, typ
 
    return (
       <div className="w-full relative">
-         {formatPrice && <BiDollar size={24} className="text-neutral-700 absolute top-5 left-2" />}
+         {formatPrice && <BiDollar size={24} className="text-neutral-700 absolute top-6 left-2" />}
          <input
             id={id}
             disabled={disabled}

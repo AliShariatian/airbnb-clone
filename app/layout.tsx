@@ -9,6 +9,7 @@ import RegisterModal from "@/components/modals/RegisterModal";
 import RentModal from "@/components/modals/RentModal";
 import ToasterProvider from "@/providers/ToasterProvider";
 import { getCurrentUser } from "@/actions/getCurrentUser";
+import ClientOnly from "@/components/ClientOnly";
 
 const fontNunito = Nunito({ subsets: ["latin-ext"] });
 
@@ -23,12 +24,14 @@ async function RootLayout({ children }: { children: React.ReactNode }) {
    return (
       <html lang="en">
          <body className={fontNunito.className}>
-            <Navbar currentUser={currentUser} />
-            {children}
-            <ToasterProvider />
-            <LoginModal />
-            <RegisterModal />
-            <RentModal />
+            {/* <ClientOnly> */}
+               <Navbar currentUser={currentUser} />
+               <ToasterProvider />
+               <LoginModal />
+               <RegisterModal />
+               <RentModal />
+            {/* </ClientOnly> */}
+            <main className="pb-20 pt-28">{children}</main>
          </body>
       </html>
    );

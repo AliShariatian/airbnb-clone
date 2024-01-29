@@ -56,19 +56,23 @@ const ListingCard: React.FC<ListingCardProps> = ({ data, onAction, disabled, act
       return `${format(start, "PP")} - ${format(end, "PP")}`;
    }, [reservation]);
 
-   // -----------
+   // -------------------
    return (
-      <Link href={`/listings/${data.id}`} title="Read More" className="col-span-1 cursor-pointer group">
+      <div className="col-span-1 group">
          <div className="flex flex-col gap-2 w-full">
             <div className="aspect-square rounded-xl overflow-hidden relative w-full">
-               <Image fill alt={data.title} src={data.imageSrc} className="object-cover size-full transition group-hover:scale-110" />
+               <Link href={`/listings/${data.id}`} title="Read More">
+                  <Image fill alt={data.title} src={data.imageSrc} className="object-cover size-full transition group-hover:scale-110" />
+               </Link>
                <div className="absolute top-3 right-3">
                   <HeartButton listingId={data.id} currentUser={currentUser} />
                </div>
             </div>
-            <span className="font-semibold text-lg">
-               {location?.region}, {location?.label}
-            </span>
+            <Link href={`/listings/${data.id}`} title="Read More" className="w-fit">
+               <span className="font-semibold text-lg w-fit">
+                  {location?.region}, {location?.label}
+               </span>
+            </Link>
             <div className="font-light text-neutral-500">{reservationData || data.category}</div>
             <div className="flex items-center gap-1">
                <span className="font-semibold">$ {price}</span>
@@ -76,7 +80,7 @@ const ListingCard: React.FC<ListingCardProps> = ({ data, onAction, disabled, act
             </div>
             {onAction && actionLabel && <Button disabled={disabled} small label={actionLabel} onClick={cancelHandler} />}
          </div>
-      </Link>
+      </div>
    );
 };
 

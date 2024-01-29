@@ -9,7 +9,7 @@ interface InputProps {
    id: string;
    label: string;
    register: UseFormRegister<FieldValues>;
-   payload?: { pattern?: { value: RegExp; message: string }; minLength?: { value: number; message: string }; required?: { value: boolean; message: string } };
+   payload?: { pattern?: { value: RegExp; message: string }; minLength?: { value: number; message: string }; min?: { value: number; message: string }; required?: { value: boolean; message: string } };
    errors: FieldErrors | any;
    type?: string;
    disabled?: boolean;

@@ -186,7 +186,7 @@ const RentModal = () => {
       bodyContent = (
          <div className="flex flex-col gap-8">
             <Heading title="Now, set your price" subTitle="How much do you charge for per night?" />
-            <Input id="price" label="Price" formatPrice type="number" disabled={isLoading} register={register} errors={errors} payload={{ required: { value: true, message: "Price is required!" } }} />
+            <Input id="price" label="Price" formatPrice type="number" disabled={isLoading} register={register} errors={errors} payload={{ required: { value: true, message: "Price is required!" },min: { value: 1, message: 'The price value must be greater than $0' } }} />
          </div>
       );
    }

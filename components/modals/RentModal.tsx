@@ -11,6 +11,7 @@ import { FieldValues, useForm } from "react-hook-form";
 import CountrySelect from "../inputs/CountrySelect";
 import Counter from "../inputs/Counter";
 import ImageUpload from "../inputs/ImageUpload";
+import Input from "../inputs/Input";
 
 enum STEPS {
    CATEGORY = 0,
@@ -23,6 +24,8 @@ enum STEPS {
 
 const RentModal = () => {
    const [step, setStep] = useState(STEPS.CATEGORY);
+   const [isLoading, setIsLoading] = useState(false);
+
    const rentModal = useRentModal();
 
    const {
@@ -139,6 +142,17 @@ const RentModal = () => {
          <div className="flex flex-col gap-8">
             <Heading title="Add a photo of your place" subTitle="Show guests what your place look like!" />
             <ImageUpload value={imageSrc} onChange={(value) => setCustomValue("imageSrc", value)} />
+         </div>
+      );
+   }
+
+   if (step === STEPS.DESCRIPTION) {
+      bodyContent = (
+         <div className="flex flex-col gap-6">
+            <Heading title="How would you describe your place?" subTitle="Short and sweet works best!" />
+            <Input id="title" label="Title" disabled={isLoading} register={register} errors={errors} payload={{ required: { value: true, message: "Title is required!" } }} />
+            <hr />
+            <Input id="description" label="Description" disabled={isLoading} register={register} errors={errors} payload={{ required: { value: true, message: "Description is required!" } }} />
          </div>
       );
    }

@@ -22,6 +22,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 - World countries
 - React select
 - Next cloudinary
+- Date fns
 - Leaflet
 - Zustand
 - Axios

@@ -1,5 +1,6 @@
-import useCountries from "@/hooks/useCountries";
+import { useMemo } from "react";
 import dynamic from "next/dynamic";
+import useCountries from "@/hooks/useCountries";
 import { SafeUser } from "@/types";
 import { IconType } from "react-icons";
 import Avatar from "../Avatar";
@@ -19,8 +20,11 @@ const ListingInfo: React.FC<ListingInfoProps> = ({ user, description, roomCount,
    const { getByValue } = useCountries();
    const coordinates = getByValue(locationValue)?.latlng;
 
-   const Map = dynamic(() => import("../Map"), { ssr: false });
-
+   const Map = useMemo(() => {
+      return dynamic(() => import("../Map"), {
+         ssr: false,
+      });
+   }, []);
    return (
       <div className="flex flex-col gap-8 col-span-4">
          <div className="flex flex-col gap-2">

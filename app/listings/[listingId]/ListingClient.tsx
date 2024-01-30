@@ -1,20 +1,96 @@
-// 'use client'
+"use client";
 
-import { useMemo } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
 import { SafeListing, SafeUser } from "@/types";
 import { Reservation } from "@prisma/client";
 import { categories } from "@/components/navbar/Categories";
 import Container from "@/components/Container";
 import ListingHead from "@/components/listings/ListingHead";
 import ListingInfo from "@/components/listings/ListingInfo";
+import useLoginModal from "@/hooks/useLoginModal";
+import { differenceInCalendarDays, eachDayOfInterval, setDate } from "date-fns";
+import axios from "axios";
+import toast from "react-hot-toast";
+import ListingReservation from "@/components/listings/ListingReservation";
+import { Range } from "react-date-range";
+
+const initialDateRange = {
+   startDate: new Date(),
+   endDate: new Date(),
+   key: "selection",
+};
 
 interface ListingClientProps {
    listing: SafeListing & { user: SafeUser };
-   reservation?: Reservation[];
+   reservations?: Reservation[];
    currentUser?: SafeUser | null;
 }
 
-const ListingClient: React.FC<ListingClientProps> = ({ listing, reservation, currentUser }) => {
+const ListingClient: React.FC<ListingClientProps> = ({ listing, reservations = [], currentUser }) => {
+   const loginModal = useLoginModal();
+   const router = useRouter();
+
+   const disabledDate = useMemo(() => {
+      let dates: Date[] = [];
+
+      reservations.forEach((item: any) => {
+         const range = eachDayOfInterval({
+            start: new Date(item.startDate),
+            end: new Date(item.endDate),
+         });
+
+         dates = [...dates, ...range];
+      });
+
+      return dates;
+   }, [reservations]);
+
+   const [isLoading, setIsLoading] = useState(false);
+   const [totalPrice, setTotalPrice] = useState(listing.price);
+   const [dateRange, setDateRange] = useState<Range>(initialDateRange);
+
+   const onCreateReservation = useCallback(() => {
+      if (!currentUser) {
+         return loginModal.onOpen();
+      }
+
+      setIsLoading(true);
+
+      axios
+         .post("/api/reservations", {
+            totalPrice,
+            startDate: dateRange.startDate,
+            endDate: dateRange.endDate,
+            listingId: listing?.id,
+         })
+         .then(() => {
+            toast.success("Listing reserved successfully");
+            setDateRange(initialDateRange);
+            // Redirect to /trips
+            router.refresh();
+         })
+         .catch(() => {
+            toast.error("Something went wrong!");
+         })
+         .finally(() => {
+            setIsLoading(false);
+         });
+   }, [totalPrice, dateRange, listing?.id, router, currentUser, loginModal]);
+
+   useEffect(() => {
+      if (dateRange.startDate && dateRange.endDate) {
+         const dayCount = differenceInCalendarDays(dateRange.endDate, dateRange.startDate);
+
+         if (dayCount && listing.price) {
+            setTotalPrice(dayCount * listing.price);
+         } else {
+            // single night price
+            setTotalPrice(listing.price);
+         }
+      }
+   }, [dateRange, listing.price]);
+
    const category = useMemo(() => {
       return categories.find((item) => item.label === listing.category);
    }, [listing.category]);
@@ -34,6 +110,17 @@ const ListingClient: React.FC<ListingClientProps> = ({ listing, reservation, cur
                      bathroomCount={listing.bathroomCount}
                      locationValue={listing.locationValue}
                   />
+                  <div className="order-first mb-10 md:order-last md:col-span-3">
+                     <ListingReservation
+                        price={listing.price}
+                        totalPrice={totalPrice}
+                        onChangeDate={(value) => setDateRange(value)}
+                        dateRange={dateRange}
+                        onSubmit={onCreateReservation}
+                        disabled={isLoading}
+                        disabledDates={disabledDate}
+                     />
+                  </div>
                </div>
             </div>
          </div>

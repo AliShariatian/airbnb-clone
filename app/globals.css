@@ -15,3 +15,23 @@ body,
 .leaflet-top {
    z-index: 0 !important;
 }
+
+/* FOR CALENDER */
+.rdrDay {
+   padding: 5px 0 !important;
+   display: flex !important;
+   justify-content: center !important;
+}
+
+.rdrMonth {
+   width: 100% !important;
+}
+
+.rdrCalenderWrapper {
+   font-size: 1rem !important;
+   width: 100% !important;
+}
+
+.rdrDayToday .rdrDayNumber span:after {
+   bottom: -2px !important;
+}

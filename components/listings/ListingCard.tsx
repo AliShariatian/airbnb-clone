@@ -66,8 +66,8 @@ const ListingCard: React.FC<ListingCardProps> = ({ data, onAction, disabled, act
                <Link href={`/listings/${data.id}`} title="Read More">
                   <Image fill alt={data.title} src={data.imageSrc} className="object-cover size-full transition group-hover:scale-110" />
                </Link>
-               <div className="absolute top-3 right-3">
-                  <HeartButton listingId={data.id} currentUser={currentUser} />
+               <div className="absolute top-3 right-3 select-none">
+                  <HeartButton listingId={data.id} currentUser={currentUser}/>
                </div>
             </div>
             <Link href={`/listings/${data.id}`} title="Read More" className="w-fit">

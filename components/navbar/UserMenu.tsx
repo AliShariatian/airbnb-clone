@@ -10,14 +10,19 @@ import { signOut } from "next-auth/react";
 import useRegisterModal from "@/hooks/useRegisterModal";
 import useLoginModal from "@/hooks/useLoginModal";
 import useRentModal from "@/hooks/useRentModal";
-import { useRouter } from "next/navigation";
 
 interface UserMenuProps {
    currentUser?: SafeUser | null;
 }
 
+const userMenuItemsHaveLink = [
+   { href: "/trips", label: "My trips" },
+   { href: "/favorites", label: "My favorites" },
+   { href: "/reservations", label: "My reservations" },
+   { href: "/", label: "My properties" },
+];
+
 const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
-   const router = useRouter();
    const [menuIsOpen, setMenuIsOpen] = useState(false);
 
    const registerModal = useRegisterModal();
@@ -59,10 +64,10 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
                   <ul className="flex flex-col cursor-pointer">
                      {currentUser ? (
                         <>
-                           <MenuItem href="/trips" label="My trips" />
-                           <MenuItem label="My favorites" />
-                           <MenuItem href="/reservations" label="My reservations" />
-                           <MenuItem label="My properties" />
+                           {userMenuItemsHaveLink.map(({ href, label }) => (
+                              <MenuItem href={href} label={label} />
+                           ))}
+
                            <MenuItem onClick={rentModal.onOpen} label="Airbnb my home" />
                            <hr />
                            <MenuItem onClick={() => signOut()} label="Logout" />

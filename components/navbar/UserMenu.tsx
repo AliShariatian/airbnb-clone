@@ -17,7 +17,7 @@ interface UserMenuProps {
 }
 
 const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
-   const router = useRouter()
+   const router = useRouter();
    const [menuIsOpen, setMenuIsOpen] = useState(false);
 
    const registerModal = useRegisterModal();
@@ -61,7 +61,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
                         <>
                            <MenuItem href="/trips" label="My trips" />
                            <MenuItem label="My favorites" />
-                           <MenuItem label="My reservations" />
+                           <MenuItem href="/reservations" label="My reservations" />
                            <MenuItem label="My properties" />
                            <MenuItem onClick={rentModal.onOpen} label="Airbnb my home" />
                            <hr />

@@ -38,14 +38,14 @@ const RegisterModal = () => {
          .post("/api/register", data)
          .then((callback) => {
             registerModal.onClose();
-            console.log(`ali ${callback.status}`);
+            loginModal.onOpen();
 
             if (callback?.status === 200) {
                toast.success("Register Successfully!");
             }
 
             if (callback?.status !== 200) {
-               toast.error("Error in Register!");
+               toast.error("Error in Registration!");
             }
          })
          .catch(() => {

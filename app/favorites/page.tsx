@@ -3,7 +3,7 @@ import EmptyState from "@/components/EmptyState";
 import { getFavoriteListings } from "@/actions/getFavoriteListings";
 import FavoritesClient from "./FavoritesClient";
 
-const ReservationPage = async () => {
+const FavoritesPage = async () => {
    const currentUser = await getCurrentUser();
    const favoriteListings = await getFavoriteListings();
 
@@ -14,4 +14,4 @@ const ReservationPage = async () => {
    return <FavoritesClient favoriteListings={favoriteListings} currentUser={currentUser} />;
 };
 
-export default ReservationPage;
+export default FavoritesPage;

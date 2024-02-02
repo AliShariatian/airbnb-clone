@@ -1,11 +1,15 @@
+import { getCurrentUser } from "@/actions/getCurrentUser";
+import getListings, { ListingsParams } from "@/actions/getListings";
 import Container from "@/components/Container";
 import EmptyState from "@/components/EmptyState";
-import getListings from "@/actions/getListings";
 import ListingCard from "@/components/listings/ListingCard";
-import { getCurrentUser } from "@/actions/getCurrentUser";
 
-const HomePage = async () => {
-   const listings = await getListings();
+interface HomePageProps {
+   searchParams: ListingsParams;
+}
+
+const HomePage = async ({ searchParams }: HomePageProps) => {
+   const listings = await getListings(searchParams);
    const currentUser = await getCurrentUser();
 
    if (listings.length === 0) {

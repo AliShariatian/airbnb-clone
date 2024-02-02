@@ -19,7 +19,7 @@ const userMenuItemsHaveLink = [
    { href: "/trips", label: "My trips" },
    { href: "/favorites", label: "My favorites" },
    { href: "/reservations", label: "My reservations" },
-   { href: "/", label: "My properties" },
+   { href: "/properties", label: "My properties" },
 ];
 
 const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
